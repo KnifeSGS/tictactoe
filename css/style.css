@@ -1,3 +1,114 @@
 * {
     box-sizing: border-box;
 }
+
+html {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(191, 216, 255);
+}
+
+td {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(59, 134, 255);
+    color: rgb(250, 250, 250);
+}
+
+.ticToc__1, .ticToc__2, .ticToc__3 {
+    display: flex;
+}
+
+.ticToc__1A, .ticToc__1B, .ticToc__1C, .ticToc__2A, .ticToc__2B, .ticToc__2C {
+    border-bottom: 1px solid rgb(250, 250, 250);
+    /* padding: 0; */
+}
+
+.ticToc__1A, .ticToc__1B, .ticToc__2A, .ticToc__2B, .ticToc__3A, .ticToc__3B {
+    border-right: 1px solid rgb(250, 250, 250);
+    /* padding: 0; */
+}
+
+.ticToc__1A {
+    border-radius: 5px 0 0 0;
+}
+
+.ticToc__1C {
+    border-radius: 0 5px 0 0;
+}
+
+.ticToc__3A {
+    border-radius: 0 0 0 5px;
+}
+
+.ticToc__3C {
+    border-radius: 0 0 5px 0;
+}
+
+.ticToc__1 {
+    background-color: transparent;
+}
+
+.ticToc, .title, .start {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+}
+
+.ticToc__table {
+    max-width: 100%;
+    display: flex;
+
+}
+
+.ticToc__body {
+    display: flex;
+    box-shadow: 0 0 20px rgb(50, 50, 50);
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+}
+
+.player__icon {
+    margin-bottom: 2rem;
+
+}
+
+.start__btn {
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(42, 205, 255);
+    padding: 1rem;
+    color: rgb(71, 71, 71);
+    font-size: 1.1rem;
+    outline: none;
+    text-decoration: none;
+}
+
+.start__btn:hover {
+    box-shadow: 0 0 10px rgb(71, 71, 71);
+}
+
+.start__btn:active {
+    background-color: rgb(36, 120, 255);
+    transform: translateY(5px);
+}
+
+.ticToc__field {
+    display: flex;
+    width: 1rem;
+    height: 1rem;
+    background-color: transparent;
+    border: none;
+}
+
+.ticToc__field:focus {
+    outline: none;
+}

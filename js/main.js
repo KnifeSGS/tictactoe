@@ -1,9 +1,9 @@
 'use strict';
 
 const ticTocMatrix = [
-    ['O', 'O', ''],
-    ['X', 'X', ''],
-    ['X', 'X', 'O']
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
 ];
 
 // Végig megy a tömbön és minden elemet listáz indexével
@@ -16,21 +16,42 @@ const ticTocMatrix = [
 // ticTocMatrix.forEach((item, index1) => item.forEach((cell, index2) => console.log(index1, index2)));
 
 // Start
-const flatMatrix = ticTocMatrix.flat();
-const stringO = flatMatrix.filter(item => item === 'O');
-const stringX = flatMatrix.filter(item => item === 'X');
-let startingPlayer = 'O';
-function nextPlayer(startingPlayer) {
-        if (startingPlayer === 'O' && stringO.length === stringX.length) {
-            console.log('next player: O');
-        } else if (startingPlayer === 'O' && stringO.length > stringX.length){
-            console.log('next player: X');
-        } else if (startingPlayer !== 'O' && stringO.length === stringX.length){
-            console.log('next player: X');
-        } else if (startingPlayer !== 'O' && stringO.length < stringX.length){
-            console.log('next player: O');
-        } else {
-            console.log('Nem Te jössz!');
-        }
-};
+let currentPlayer = 'X';
+let nextP = nextPlayer();
+function nextPlayer() {
+    if (currentPlayer === 'X') {
+        return 'O'
+    } else {
+        return 'X'
+    }
+}
+// Lépések
+
+const playerTurn = document.querySelector('.nextPlayerIcon')
+const cell = document.querySelectorAll('.field');
+const cellArr = Array.from(cell);
+let cellArrIt = cellArr.map(item => item.textContent);
+// const cellIt = cellArrIt.forEach((item, index) => console.log(index, '-', item));
+
+(function next() {
+    playerTurn.textContent = currentPlayer;
+})();
+
+(function play() {
+    cellArr.forEach(function(item) {
+        item.addEventListener('click', (event) => {
+            event.target.textContent = currentPlayer;
+            currentPlayer = nextP
+        })
+    } 
+    )
+})();
+
+/* function switchPlayer() {
+    if (playerTurn === ' X') {
+        cell.innerText = 'X'
+    } else {
+        cell.innerText = 'O'
+    } return
+} */
 

@@ -15,43 +15,73 @@ const ticTocMatrix = [
 // Végig megy és listázza az indexeket
 // ticTocMatrix.forEach((item, index1) => item.forEach((cell, index2) => console.log(index1, index2)));
 
-// Start
-let currentPlayer = 'X';
-let nextP = nextPlayer();
-function nextPlayer() {
-    if (currentPlayer === 'X') {
-        return 'O'
-    } else {
-        return 'X'
-    }
+const cellAr = document.querySelectorAll('.field');
+const cellArray = Array.from(cellAr);
+let currentP = 'O';
+
+function play() {
+    cellArray.forEach((item) => {
+        item.addEventListener('click', handleClick)
+    })
+};
+
+const currentPlayer = () => {
+    currentP = currentP === 'X' ? 'O' : 'X';
+};
+
+const handleClick = (event) => {
+    modifyCell(event.target);
+    currentPlayer();
+    changeMatrixValue(event.target);
+    checkWinner();
+};
+
+const modifyCell = (element) => {
+    element.removeEventListener('click', handleClick);
+    element.textContent = currentP;
+};
+
+const changeMatrixValue = (element) => {
+    const row = parseInt(element.dataset.row, 10);
+    const cell = parseInt(element.dataset.cell, 10);
+    ticTocMatrix[row][cell] = element.textContent;
+};
+
+const newGame = () => {
+    ticTocMatrix.forEach(index => ticTocMatrix[index] = [])
+        .forEach(index => target[index] = '')
+    removeEventListener()
+};
+
+const removeListener = () => {
+    cellArray.forEach(element => {
+        element.removeListener('click', handleClick)
+    });
+};
+
+const checkRowValues = () => {
+    const values = ticTocMatrix.map(row =>
+        row.every((value) => value === 'X') ||
+        row.every((value) => value === 'O'))
+    console.log(values);
+    return values.indexOf(true) !== -1;
 }
-// Lépések
 
-const playerTurn = document.querySelector('.nextPlayerIcon')
-const cell = document.querySelectorAll('.field');
-const cellArr = Array.from(cell);
-let cellArrIt = cellArr.map(item => item.textContent);
-// const cellIt = cellArrIt.forEach((item, index) => console.log(index, '-', item));
+ticTocMatrix.forEach((value) => value.forEach(data => console.log(data)));
+const checkColumnValues = () => {
+    const valuesCol = column.map(col =>
+        col.every((value) => value === 'X') ||
+        col.every((value) => value === 'O'))
+    console.log(valuesCol);
+    return valuesCol.indexOf(true) !== -1;
+}
 
-(function next() {
-    playerTurn.textContent = currentPlayer;
-})();
+const checkDiagonalValues = () => { }
 
-(function play() {
-    cellArr.forEach(function(item) {
-        item.addEventListener('click', (event) => {
-            event.target.textContent = currentPlayer;
-            currentPlayer = nextP
-        })
-    } 
-    )
-})();
+const checkWinner = () => {
 
-/* function switchPlayer() {
-    if (playerTurn === ' X') {
-        cell.innerText = 'X'
-    } else {
-        cell.innerText = 'O'
-    } return
-} */
+    console.log(checkRowValues());
+    console.log(checkColumnValues());
+}
 
+play();

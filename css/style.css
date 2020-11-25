@@ -12,14 +12,14 @@ html {
 }
 
 td {
-    width: 3rem;
-    height: 3rem;
+    width: 6rem;
+    height: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color:rgb(82,138,187);
     color: rgb(228,255,255);
-    font-size: 2rem;
+    font-size: 5rem;
 }
 
 .ticToc__row {
@@ -55,7 +55,7 @@ td {
 .ticToc, .title {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 
 .start {
@@ -86,6 +86,7 @@ td {
 
 .player__icon {
     margin-bottom: 2rem;
+    font-size: 1.5rem;
     font-weight: 500;
 
 }
@@ -111,14 +112,7 @@ td {
     transform: translateY(5px);
 }
 
-.markO {
-
-}
-
-.markX {
-
-}
-
 .winner {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
 }

@@ -116,29 +116,32 @@ const checkColumnValues = () =>
 const checkDiagonalValues = () =>
     checkValues([
         ticTocMatrix.map((arr, i) => ticTocMatrix[i][i]),
-        ticTocMatrix.map((arr, i) => ticTocMatrix[i][ticTocMatrix[i.length - i]])
-    ])
-const checkDiagonalValues2 = () =>
-    checkValues([
-        ticTocMatrix.map((arr, i) => ticTocMatrix[i][i]),
-        ticTocMatrix.map((arr, i) => ticTocMatrix[i][ticTocMatrix[i.length - i]])
+        ticTocMatrix.map((arr, i) => ticTocMatrix[i][ticTocMatrix[i].length - i - 1])
     ])
 
 const endGame = () => {
     setMessage(`A győztes: ${currentP === 'X' ? 'O' : 'X'}`);
     removeListener();
     addPoints();
+    showPoints();
 }
 
 const addPoints = () => {
     if (currentP === 'X') {
-        return pointsX += 1;
-    } else if (currentP === 'O') {
         return pointsO += 1;
+    } else if (currentP === 'O') {
+        return pointsX += 1;
     } else {
         return
     }
 }
+
+const showPoints = () => {
+    pointOArea.textContent = pointsO;
+    pointXArea.textContent = pointsX;
+
+}
+
 
 const setMessage = (message) => {
     document
@@ -147,8 +150,8 @@ const setMessage = (message) => {
 }
 
 const checkWinner = () => {
-    console.log(checkColumnValues(), checkDiagonalValues(), checkDiagonalValues2());
-    if (checkValues(ticTocMatrix) || checkColumnValues() || checkDiagonalValues() || checkDiagonalValues2()) {
+    console.log(checkColumnValues(), checkDiagonalValues());
+    if (checkValues(ticTocMatrix) || checkColumnValues() || checkDiagonalValues()) {
         endGame();
     }
 }
@@ -156,7 +159,6 @@ const checkWinner = () => {
 const restart = () => {
     ticTocMatrix = Array(cols).fill('').map(() => Array(rows).fill(''));
     resetCell();
-    // play();
 }
 
 const resetCell = () => {

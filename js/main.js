@@ -1,10 +1,17 @@
 'use strict';
 
-const ticTocMatrix = [
+let ticTocMatrix = [
     ['', '', ''],
     ['', '', ''],
     ['', '', '']
 ];
+const rows = 3;
+const cols = 3;
+let pointsO = 0;
+const pointOArea = document.querySelector('.standing__O--points')
+let pointsX = 0;
+const pointXArea = document.querySelector('.standing__X--points')
+
 
 // Végig megy a tömbön és minden elemet listáz indexével
 // ticTocMatrix.forEach(item => item.forEach((cell, index) => console.log(cell, index)));
@@ -20,10 +27,28 @@ const cellArray = Array.from(cellAr);
 let currentP = 'O';
 
 function play() {
-    cellArray.forEach((item) => {
-        item.addEventListener('click', handleClick)
-    })
+    restart();
+    addClickListener();
+    newGame();
 };
+
+const newGame = () => {
+    document
+        .querySelector('.start__btn')
+        .addEventListener('click', () => {
+            restart();
+            addClickListener();
+            setMessage('');
+            currentPlayer()
+        })
+}
+
+const addClickListener = () => {
+    cellArray
+        .forEach(element => {
+            element.addEventListener('click', handleClick)
+        });
+}
 
 const currentPlayer = () => {
     currentP = currentP === 'X' ? 'O' : 'X';
@@ -47,41 +72,104 @@ const changeMatrixValue = (element) => {
     ticTocMatrix[row][cell] = element.textContent;
 };
 
-const newGame = () => {
-    ticTocMatrix.forEach(index => ticTocMatrix[index] = [])
-        .forEach(index => target[index] = '')
-    removeEventListener()
-};
-
 const removeListener = () => {
     cellArray.forEach(element => {
-        element.removeListener('click', handleClick)
+        element.removeEventListener('click', handleClick)
     });
 };
 
-const checkRowValues = () => {
-    const values = ticTocMatrix.map(row =>
+/* const checkRowValues = (array) => {
+    const values = array.map(row =>
         row.every((value) => value === 'X') ||
         row.every((value) => value === 'O'))
-    console.log(values);
     return values.indexOf(true) !== -1;
+} */
+const checkValues = (arr) => arr.map(row =>
+    row.every((value) => value === 'X') ||
+    row.every((value) => value === 'O'))
+    .indexOf(true) !== -1;
+
+/* const checkColumnValues = () => {
+    let valuesCol = [];
+    valuesCol = [getColumn(ticTocMatrix, 0), getColumn(ticTocMatrix, 1), getColumn(ticTocMatrix, 2)];
+    // console.log(valuesCol);
+    return checkRowValues(valuesCol)
+} */
+/* function getColumn(matrix, col) {
+    const column = [];
+    for (let i = 0; i < matrix.length; i++) {
+        column.push(matrix[i][col]);
+    }
+
+    return column
+}; */
+
+const checkColumnValues = () =>
+    checkValues(ticTocMatrix.map((arr, i) => arr.map((item, j) => ticTocMatrix[j][i])))
+
+/* const checkDiagonalValues = () => {
+    const diagonal1 = [ticTocMatrix[0][0], ticTocMatrix[1][0], ticTocMatrix[2][0]];
+
+    return checkValues(diagonal1)
+} */
+
+const checkDiagonalValues = () =>
+    checkValues([
+        ticTocMatrix.map((arr, i) => ticTocMatrix[i][i]),
+        ticTocMatrix.map((arr, i) => ticTocMatrix[i][ticTocMatrix[i.length - i]])
+    ])
+const checkDiagonalValues2 = () =>
+    checkValues([
+        ticTocMatrix.map((arr, i) => ticTocMatrix[i][i]),
+        ticTocMatrix.map((arr, i) => ticTocMatrix[i][ticTocMatrix[i.length - i]])
+    ])
+
+const endGame = () => {
+    setMessage(`A győztes: ${currentP === 'X' ? 'O' : 'X'}`);
+    removeListener();
+    addPoints();
 }
 
-ticTocMatrix.forEach((value) => value.forEach(data => console.log(data)));
-const checkColumnValues = () => {
-    const valuesCol = column.map(col =>
-        col.every((value) => value === 'X') ||
-        col.every((value) => value === 'O'))
-    console.log(valuesCol);
-    return valuesCol.indexOf(true) !== -1;
+const addPoints = () => {
+    if (currentP === 'X') {
+        return pointsX += 1;
+    } else if (currentP === 'O') {
+        return pointsO += 1;
+    } else {
+        return
+    }
 }
 
-const checkDiagonalValues = () => { }
+const setMessage = (message) => {
+    document
+        .querySelector('.winner')
+        .textContent = message
+}
 
 const checkWinner = () => {
-
-    console.log(checkRowValues());
-    console.log(checkColumnValues());
+    console.log(checkColumnValues(), checkDiagonalValues(), checkDiagonalValues2());
+    if (checkValues(ticTocMatrix) || checkColumnValues() || checkDiagonalValues() || checkDiagonalValues2()) {
+        endGame();
+    }
 }
 
+const restart = () => {
+    ticTocMatrix = Array(cols).fill('').map(() => Array(rows).fill(''));
+    resetCell();
+    // play();
+}
+
+const resetCell = () => {
+    cellArray.forEach((element) => {
+        element.textContent = '';
+    });
+    removeListener();
+};
+
+const restartBtn = () => {
+    const btn = document.querySelector('.start__btn');
+    btn.addEventListener('click', restart)
+}
+
+restartBtn();
 play();

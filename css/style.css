@@ -28,12 +28,10 @@ td {
 
 .ticToc__1A, .ticToc__1B, .ticToc__1C, .ticToc__2A, .ticToc__2B, .ticToc__2C {
     border-bottom: 1px solid rgb(201,222,241);
-    /* padding: 0; */
 }
 
 .ticToc__1A, .ticToc__1B, .ticToc__2A, .ticToc__2B, .ticToc__3A, .ticToc__3B {
     border-right: 1px solid rgb(201,222,241);
-    /* padding: 0; */
 }
 
 .ticToc__1A {
@@ -88,7 +86,6 @@ td {
     margin-bottom: 2rem;
     font-size: 1.5rem;
     font-weight: 500;
-
 }
 
 .start__btn {

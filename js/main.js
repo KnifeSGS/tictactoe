@@ -12,16 +12,6 @@ const pointOArea = document.querySelector('.standing__O--points')
 let pointsX = 0;
 const pointXArea = document.querySelector('.standing__X--points')
 
-
-// Végig megy a tömbön és minden elemet listáz indexével
-// ticTocMatrix.forEach(item => item.forEach((cell, index) => console.log(cell, index)));
-// Végig megy a külső tömbön és listázza belső tömböket indexükkel
-// ticTocMatrix.forEach((item, index) => console.log(item, index));
-// Végig megy és listáz mindent
-// ticTocMatrix.forEach((item, index1) => item.forEach((cell, index2) => console.log(item, index1, cell, index2)));
-// Végig megy és listázza az indexeket
-// ticTocMatrix.forEach((item, index1) => item.forEach((cell, index2) => console.log(index1, index2)));
-
 const cellAr = document.querySelectorAll('.field');
 const cellArray = Array.from(cellAr);
 let currentP = 'O';
@@ -78,40 +68,13 @@ const removeListener = () => {
     });
 };
 
-/* const checkRowValues = (array) => {
-    const values = array.map(row =>
-        row.every((value) => value === 'X') ||
-        row.every((value) => value === 'O'))
-    return values.indexOf(true) !== -1;
-} */
 const checkValues = (arr) => arr.map(row =>
     row.every((value) => value === 'X') ||
     row.every((value) => value === 'O'))
     .indexOf(true) !== -1;
 
-/* const checkColumnValues = () => {
-    let valuesCol = [];
-    valuesCol = [getColumn(ticTocMatrix, 0), getColumn(ticTocMatrix, 1), getColumn(ticTocMatrix, 2)];
-    // console.log(valuesCol);
-    return checkRowValues(valuesCol)
-} */
-/* function getColumn(matrix, col) {
-    const column = [];
-    for (let i = 0; i < matrix.length; i++) {
-        column.push(matrix[i][col]);
-    }
-
-    return column
-}; */
-
 const checkColumnValues = () =>
     checkValues(ticTocMatrix.map((arr, i) => arr.map((item, j) => ticTocMatrix[j][i])))
-
-/* const checkDiagonalValues = () => {
-    const diagonal1 = [ticTocMatrix[0][0], ticTocMatrix[1][0], ticTocMatrix[2][0]];
-
-    return checkValues(diagonal1)
-} */
 
 const checkDiagonalValues = () =>
     checkValues([
@@ -139,9 +102,7 @@ const addPoints = () => {
 const showPoints = () => {
     pointOArea.textContent = pointsO;
     pointXArea.textContent = pointsX;
-
 }
-
 
 const setMessage = (message) => {
     document
